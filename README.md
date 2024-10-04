@@ -29,8 +29,8 @@ Besuchen Sie die Webseite über diesen [Link](https://whitelow-designes.github.i
 ## Lizenz
 
 Dieses Projekt steht unter folgender Lizenz: [License](https://www.termsfeed.com/live/d09b592f-c9cf-4b41-94f0-91838672ff3a)  
-Details zur Lizenz und Kontaktinformationen für Verbesserungsvorschläge finden Sie in der Datei: `d09b592f-c9cf-4b41-94f0-91838672ff3a.html`.
+Details zur Lizenz und Kontaktinformationen für Verbesserungsvorschläge finden Sie in der Lizenz-Datei.
 
 ## Kontakt
 
-Wenn Sie Vorschläge zur Verbesserung der Webseite haben, senden Sie diese bitte per E-Mail an die Adresse, die in der Lizenzdatei (`d09b592f-c9cf-4b41-94f0-91838672ff3a.html`) angegeben ist.
+Wenn Sie Vorschläge zur Verbesserung der Webseite haben, senden Sie diese bitte per E-Mail an die Adresse, die in der Lizenzdatei angegeben ist.
