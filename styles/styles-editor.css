@@ -1,0 +1,102 @@
+
+/* Standard-Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    display: grid;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    padding: 10px;
+}
+
+hr {
+    background-color: greyblack;
+    border: 1px flexible #cfcfcf5c;
+    border-radius: 5px;
+    padding: 2px;
+    text-align: center;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+/* Header Navigation */
+header {
+    background-color: #1e1e1e;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+    text-decoration: underline ;
+    color: #f0f0f025;
+    font-weight: bold;
+    padding: 15px;
+}
+
+#hidden-video {
+    display: none; /* Das Video wird unsichtbar gemacht */
+}
+
+.ranch-button {
+    background-color: #4b3b2495;
+    color: #ffffff95;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.hidden {
+    display: none;
+}
+
+.ranch-button:hover {
+    background-color: #6a4e2e;
+}
+
+/* Footer */
+footer {
+    margin-top: 25px;
+    text-align: center;
+    padding: 25px;
+    background-color: #1e1e1e;
+    color: #faba0a;
+    position: bottom; /* Um sicherzustellen, dass der Footer immer am Ende ist */
+    width: 100%; /* Setzt die Breite auf 100% */
+}
+
+.footer-links {
+    margin-top: 10px; /* Abstand zwischen Copyright und Links */
+}
+
+.footer-links a {
+    color: #aaa; /* Linkfarbe */
+    margin: 0 10px; /* Abstand zwischen Links */
+    text-decoration: none; /* Keine Unterstreichung der Links */
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Unterstreichung beim Hover-Effekt */
+}
+
+/* Responsive Design for Mobile Devices */
+@media only screen and (max-width: 768px) {
+    .image-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

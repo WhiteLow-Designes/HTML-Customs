@@ -1,0 +1,94 @@
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: #f0f0f0b4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: green;
+}
+
+a:hover {
+    color: green;
+}
+
+#hidden-video {
+    display: none; /* Das Video wird unsichtbar gemacht */
+}
+
+#media-player {
+    width: 60%;
+    margin: 1080px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border: 2px solid #b0b0b025;
+    border-radius: 65px;
+    text-align: center;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+video, audio {
+    padding: 1px;
+    margin: 5px;
+    width: 100%;
+    max-height: 720p;
+    border: 1px solid #b0b0b035;
+    border-radius: 65px;
+}
+
+#controls {
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid #b0b0b025;
+    border-radius: 65px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #b4f40f70;
+    border: 2px solid #b0b0b025;
+    border-radius: 65px;
+}
+
+#playlist {
+    list-style: none;
+    margin-top: 20px;
+}
+
+#playlist li {
+    padding: 5px;
+    margin: 25px;
+    cursor: pointer;
+    background-color: #f0f0f070;
+    margin-bottom: 5px;
+    border: 1px solid #bfb40f;
+    border-radius: 65px;
+}
+
+#playlist li:hover {
+    background-color: #b4f40f70;
+    border: 1px solid #b4f40f0f;
+    border-radius: 65px;
+}
+
+#playlist li.active {
+    background-color: #b4f40f70;
+    border: 1px solid #b4f40f;
+    border-radius: 65px;
+    color: yellowgreen;
+}

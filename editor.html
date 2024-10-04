@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS | Bildergalerie</title>
+    <link rel="stylesheet" href="styles/styles-editor.css">
+    <link rel="stylesheet" href="styles/mp.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://fonts.googleapis.com/css2?family=Rye&display=swap" rel="stylesheet">
+    <script src="scripts/app.js"></script>
+    <script src="scripts/mp.js"></script>
+</head>
+<body>
+    <hr>
+    <br>
+      <header style="background-color: #080808da; border: 2.5px solid rgba(107, 107, 107, 0.267); box-shadow: 0px 0px 42px #000000; border-radius: 25px;">
+          <nav>
+              <ul>
+                  <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="index.html">Startseite</a></li>
+                  <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="about.html">About</a></li>
+                  <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="steamstart.html">Ranch Simulator</a></li>
+              </ul>
+          </nav>
+      </header> 
+    <hr>
+  <br>
+<main class="ranch-ui" id="gameStartButton" style="justify-content: center; text-align: center; list-style: none;">
+    <iframe id="hidden-video" width="150" height="84" 
+        src="https://www.youtube.com/embed/Qtb20K6noho?autoplay=1&controls=0" 
+        title="YouTube video player" frameborder="0" 
+        allow="autoplay; encrypted-media" allowfullscreen hidden>
+    </iframe>
+    <section class="ranch-ui" id="gameStartButton" style="justify-content: center; text-align: center; margin: 25px; padding: 25px; border: 2.5px solid rgba(255, 0, 0, 0.267); box-shadow: 0px 0px 25.5px #000000; border-radius: 5px;">
+        <li><a href="steam://rungameid/1119730" class="ranch-button" style="display: Button; color: #00ff156e; text-shadow: 0.4px -0.5px 1px #ffae00;"><hr>Ranch Simulator<br> starten<hr></a></li>
+        <br>
+        <br>
+        <div id="media-player">
+            <h2 style="text-decoration: underline; color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6;"><b>_|Media-Player|_</b></h2>
+            <br>
+            <video id="media" controls></video>
+    
+            <div id="controls">
+                <button onclick="playMedia()">Play</button>
+                <button onclick="pauseMedia()">Pause</button>
+                <button onclick="prevMedia()">Vorheriges</button>
+                <button onclick="nextMedia()">Nächstes</button>
+            </div>
+            <ul id="playlist">
+                <li id="button" data-src="media/music1.mp3">Musik 1</li>
+                <li id="button" data-src="media/music2.mp3">Musik 2</li>
+                <li id="button" data-src="media/music3.mp3">Musik 3</li>
+                <li id="button" data-src="media/music4.mp3">Musik 4</li>
+                <li id="button" data-src="media/music5.mp3">Musik 5</li>
+                <li id="button" data-src="media/music6.mp3">Musik 6</li>
+            </ul>
+            <br>
+            <hr>
+            <ul id="playlist">
+                <li id="button" data-src="media/ARK - Survival Ascended.mp4">ARK: Survival Ascended</li>
+                <li id="button" data-src="media/video2.mp4">Video 2</li>
+                <li id="button" data-src="media/video3.mp4">Video 3</li>
+                <li id="button" data-src="media/video3.mp4">Video 4</li>
+                <li id="button" data-src="media/video3.mp4">Video 5</li>
+                <li id="button" data-src="media/video3.mp4">Video 6</li>  
+            </ul>
+            <br>
+            <hr>
+        <nav id="playlist">
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcf; display: button; font-size: 1.5rem;" href="https://www.youtube.com/watch?v=Qtb20K6noho" target="_blank"><b>Lost in Deep Space: The Journey | Ambient Music | LIVE 24/7</b></a></li> 
+        </nav>
+    </section>    
+</main>
+<!-- Footer -->
+<footer style="justify-content: center; text-align: encenter; background-color: #08080859; border: 2.5px solid rgba(255, 0, 0, 0.267); box-shadow: 0px 0px 42px #000000; border-radius: 25px;">
+    <br>
+    <hr>
+    <br>
+    <p>&copy; 2024 Deine Webseite. Alle Rechte vorbehalten.</p>
+    <br>
+    <hr>
+    <div class="footer-links">
+        <a href="https://www.example1.com" target="_blank">Beispiel 1</a>
+        <a href="https://www.example2.com" target="_blank">Beispiel 2</a>
+        <a href="https://www.example3.com" target="_blank">Beispiel 3</a>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <nav>
+        <ul>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://www.youtube.com/">YouTube</a></li>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://www.instagram.com">Instagram</a></li>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://www.facebook.com/home.php">Facebook</a></li>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://www.twitch.tv">Twich.tv</a></li>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://discord.com/channels/@me">Discord</a></li>
+        </ul>
+    </nav>
+    <br>
+</footer>
+</body>
+</html>

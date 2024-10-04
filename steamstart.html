@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RS | Ranch Simulator</title>
+<link rel="stylesheet" href="styles/styles.css">
+<link data-default-icon="https://static.wikia.nocookie.net/ranch-simulator/images/e/e6/Site-logo.png/revision/latest?cb=20210822081222" rel="shortcut icon" type="image/x-icon" href="https://static.wikia.nocookie.net/ranch-simulator/images/e/e6/Site-logo.png/revision/latest?cb=20210822081222">
+<link href="https://fonts.googleapis.com/css2?family=Rye&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" sizes="57x57" href="images/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="images/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="images/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="images/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="images/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="images/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="images/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="images/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="images/manifest.json">
+<script src="scripts/app.js"></script>
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <hr>
+    <br>
+      <header style="background-color: #080808da; border: 2.5px solid rgba(107, 107, 107, 0.267); box-shadow: 0px 0px 42px #000000; border-radius: 25px;">
+          <nav>
+              <ul>
+                  <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="index.html">Startseite</a></li>
+                  <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="about.html">About</a></li>
+                  <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="steamstart.html">Ranch Simulator</a></li>
+              </ul>
+          </nav>
+      </header> 
+    <hr>
+  <br>
+  <iframe id="hidden-video" width="150" height="84" 
+        src="https://www.youtube.com/embed/Qtb20K6noho?autoplay=1&controls=0" 
+        title="YouTube video player" frameborder="0" 
+        allow="autoplay; encrypted-media" allowfullscreen hidden>
+    </iframe>
+<section class="ranch-ui">
+    <br>
+    <hr>
+    <h1>Ranch Simulator<hr>Login</h1>
+    <hr>
+    <br>
+    <!-- Anmeldeformular -->
+    <form action="javascript:void(0);" onsubmit="authenticateUser()">
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" name="username" placeholder="Dein Benutzername">
+        
+        <label for="password">Passwort:</label>
+        <input type="password" id="password" name="password" placeholder="Dein Passwort">
+        
+        <button type="submit" class="ranch-button">Anmelden</button>
+    </form>
+</section>
+<section class="ranch-ui" id="gameStartButton" style="display: none;">
+    <!-- Button zum Starten des Spiels -->
+    <a href="steam://rungameid/1119730" class="ranch-button" style="display: Button;"><hr>Ranch Simulator<br> starten<hr></a>
+</section>
+<!-- Footer -->
+<footer style="justify-content: center; text-align: encenter; background-color: #08080859; border: 2.5px solid rgba(255, 0, 0, 0.267); box-shadow: 0px 0px 42px #000000; border-radius: 25px;">
+    <br>
+    <hr>
+    <br>
+    <p>&copy; 2024 Deine Webseite. Alle Rechte vorbehalten.</p>
+    <br>
+    <hr>
+    <div class="footer-links">
+        <a href="https://www.example1.com" target="_blank">Beispiel 1</a>
+        <a href="https://www.example2.com" target="_blank">Beispiel 2</a>
+        <a href="https://www.example3.com" target="_blank">Beispiel 3</a>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <nav>
+        <ul>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://www.youtube.com/">YouTube</a></li>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://www.instagram.com">Instagram</a></li>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://www.facebook.com/home.php">Facebook</a></li>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://www.twitch.tv">Twich.tv</a></li>
+            <li><a style="color: #000000cb; text-shadow: 0px -0.2px 1.75px #cfcfcfb6; display: button; font-size: 1.5rem;" href="https://discord.com/channels/@me">Discord</a></li>
+        </ul>
+    </nav>
+    <br>
+</footer>
+</body>
+</html>
+
