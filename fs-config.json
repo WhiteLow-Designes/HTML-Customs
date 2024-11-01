@@ -1,0 +1,72 @@
+{
+    "theme":"terminal", /*In case if you want to run own theme :p*/
+    "scheme":{
+        "color":"#3f3", /*Interface color tone*/
+        "brightness":1, /*Interface brightness, 1 for 100%*/
+        "contrast":1.05, /*Interface contrast, 1 for 100%*/
+        "background":"#000", /*Background color tone (in case if you don't use background image)*/
+        "background-image":false, /*Full URL of background image or "false" if not used; YOU CAN ADD .MP4 FILES AS VIDEO BACKGROUND :)*/
+        "background-opacity":"0.12", /*Transparency of background image/color (not recommended to set > 0.2)*/
+        "background-pulsate":false, /* Weird pulsating. WIP */
+        "invert-browser":false, /* Invert colors in browser (white pages are quite... bright), set true if you want to */
+        "content":{
+            "width": "1200px", /*Width of interface zone*/
+            "margin":"0 auto" /* "0 auto" to make interface aligned to center */
+        }
+    },
+    "menu-columns":3, /*Amoun of columns in disk explorer mode*/
+    "homepage":"https://www.g-portal.com/eur/server/the-isle-evrima/7067977", /*{{homepage}} tag value for internal browser*/
+    "search-query":"https://www.google.com.ua/search?q=",
+    "ext":[ /*In case if you have some own modules to run, else you don't need to change anything*/
+        "app.web",
+        "app.text",
+        "app.sound",
+        "app.video",
+        "app.image"
+    ],
+    "sounds":{ /*If value is array, random item is played*/
+        "boot":[ /* Plays when program starts */
+            "./sfx/UI_PipBoy_LightOn.mp3"
+        ],
+        "exit":"./sfx/obj_computerterminal_powerdown.mp3", /*Plays on "reboot"*/
+        "select":[ /*Plays when you click on button/link*/
+            "./sfx/ui_pipboy_select.mp3",
+            "./sfx/obj_switch_button_b.mp3"
+        ],
+        "keypress":[ /*Plays when keyboard button is pressed*/
+            "./sfx/ui_hacking_charenter_01.mp3",
+            "./sfx/ui_hacking_charenter_02.mp3",
+            "./sfx/ui_hacking_charenter_03.mp3",
+            "./sfx/ui_hacking_charsingle_01.mp3",
+            "./sfx/ui_hacking_charsingle_02.mp3",
+            "./sfx/ui_hacking_charsingle_03.mp3",
+            "./sfx/ui_hacking_charsingle_04.mp3",
+            "./sfx/ui_hacking_charsingle_05.mp3",
+            "./sfx/ui_hacking_charsingle_06.mp3"
+        ],
+        "update":[ /*Plays on line-by-line text output on screen change, you can add same file several times to increase playing frequency*/
+            "./sfx/UI_General_Focus.mp3",
+            "./sfx/UI_General_Focus.mp3"
+        ],
+        "static":[ /*Randomly plays or not during other events*/
+            "./sfx/ui_static_c_01.mp3",
+            "./sfx/ui_static_c_02.mp3",
+            "./sfx/ui_static_c_03.mp3",
+            "./sfx/ui_static_c_04.mp3",
+            "./sfx/ui_static_c_05.mp3",
+            "./sfx/ui_static_d_01.mp3",
+            "./sfx/ui_static_d_02.mp3",
+            "./sfx/ui_static_d_03.mp3",
+            "./sfx/ui_static_d_04.mp3",
+            "./sfx/ui_static_d_05.mp3"
+        ],
+        "confirm":"./sfx/ui_hacking_passgood.mp3",
+        "apply":["./sfx/obj_switch_button_a.mp3","./sfx/obj_switch_button_b.mp3"],
+        "deny":"./sfx/ui_hacking_passbad.mp3", /*Plays on broken link click*/
+        "scroll":"./sfx/UI_LoadScreen_RotateHorizontal_01.mp3", /*Plays on page scroll*/
+        "music-play":"./sfx/UI_Terminal_Holotape_Insert_01.mp3", /*Plays on music start*/
+        "music-stop":"./sfx/UI_Terminal_Holotape_Eject_01.mp3", /*Plays on music switch*/
+        "radio-play":"./sfx/ui_radio_signalfound2.mp3", /*Plays on radio start*/
+        "radio-stop":"./sfx/ui_radio_signallost.mp3" /*Plays on radio end*/
+    }
+}
