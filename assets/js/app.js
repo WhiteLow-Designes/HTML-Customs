@@ -129,9 +129,7 @@
     chat: {
       room: 1,
       localMessages: [
-        { id: 1, room: 1, username: 'System', role: 'system', body: 'Willkommen in der Nachtlounge. Respektvoll chatten und Spaß haben!', created_at: '2026-07-17T00:20:00Z' },
-        { id: 2, room: 1, username: 'Luna', role: 'moderator', body: 'Schön, dass du da bist 👋', created_at: '2026-07-17T00:22:00Z' },
-        { id: 3, room: 1, username: 'Ryu', role: 'user', body: 'Der neue Desktop sieht stark aus.', created_at: '2026-07-17T00:24:00Z' }
+        { id: 1, room: 1, username: 'System', role: 'system', body: 'Willkommen in der Nachtlounge. Registrierte Mitglieder erscheinen automatisch in der Benutzerliste.', created_at: '2026-07-17T00:20:00Z' }
       ]
     }
   };
@@ -158,6 +156,12 @@
     if (value && value.profile) {
       if (value.profile.username === 'Matze') value.profile.username = 'Patrick';
       if (value.profile.email === 'matze@example.local') value.profile.email = 'patrick@example.local';
+    }
+    if (value && value.chat && Array.isArray(value.chat.localMessages)) {
+      var removedDemoNames = ['Luna', 'Ryu', 'James', 'Akira'];
+      value.chat.localMessages = value.chat.localMessages.filter(function (message) {
+        return removedDemoNames.indexOf(String(message.username || '')) === -1;
+      });
     }
     return value;
   }
@@ -2351,13 +2355,7 @@
   }
 
   function defaultUsers() {
-    return [
-      { username: state.profile.username || 'Patrick', role: 'user', status: 'online' },
-      { username: 'Luna', role: 'moderator', status: 'online' },
-      { username: 'Ryu', role: 'user', status: 'online' },
-      { username: 'James', role: 'system', status: 'online' },
-      { username: 'Akira', role: 'user', status: 'away' }
-    ];
+    return [];
   }
 
   function renderChat() {
@@ -2385,12 +2383,23 @@
 
   function renderChatProfilePanel() {
     var profile = chatProfileState.user;
-    if (!profile) return '<section class="chat-profile-panel"><div class="chat-profile-card loading"><span class="spinner"></span><p>Profil wird geladen…</p></div></section>';
-    var ownProfile = !!(chatSession.user && Number(profile.id) === Number(chatSession.user.id));
+    var closeButton = '<button class="button secondary" type="button" data-action="chat-profile-close">← Zurück / Schließen</button>';
+    if (!profile) {
+      return '<section class="chat-profile-panel"><div class="chat-profile-card loading"><span class="spinner"></span><p>Profil wird geladen…</p><div class="chat-profile-actions">' + closeButton + '</div></div></section>';
+    }
+    var ownProfile = !!(
+      chatSession.user &&
+      chatSession.user.id != null &&
+      profile.id != null &&
+      Number(profile.id) === Number(chatSession.user.id)
+    );
     var avatar = chatAvatarMarkup(profile, 'chat-profile-avatar');
-    var editMarkup = '<form class="chat-profile-form"><div class="chat-profile-fields"><label>Nickname<input name="username" maxlength="24" required value="' + escapeHtml(profile.username || '') + '"></label><label>E-Mail-Adresse<input name="email" type="email" maxlength="190" required value="' + escapeHtml(profile.email || '') + '"></label><label>Telefonnummer<input name="phone" maxlength="40" value="' + escapeHtml(profile.phone || '') + '"></label><label>Webseite<input name="website" type="url" maxlength="300" placeholder="https://" value="' + escapeHtml(profile.website || '') + '"></label><label>Social-Media-Link<input name="social" type="url" maxlength="300" placeholder="https://" value="' + escapeHtml(profile.social || '') + '"></label><label class="wide">Über mich<textarea name="bio" maxlength="500" rows="5">' + escapeHtml(profile.bio || '') + '</textarea></label></div><input class="visually-hidden" type="file" data-chat-avatar-input accept="image/jpeg,image/png,image/gif,image/webp"><div class="chat-profile-actions"><button class="button secondary" type="button" data-action="chat-profile-avatar-change">Profilbild ändern</button><span class="action-spacer"></span><button class="button secondary" type="button" data-action="chat-profile-cancel">Abbrechen</button><button class="button primary" type="submit">Profil speichern</button></div></form>';
-    var viewMarkup = '<div class="chat-profile-details"><div><span>Rolle</span><strong>' + escapeHtml(roleLabel(profile.role)) + '</strong></div>' + (profile.website ? '<div><span>Webseite</span><a href="' + escapeHtml(profile.website) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(profile.website) + '</a></div>' : '') + (profile.social ? '<div><span>Social Media</span><a href="' + escapeHtml(profile.social) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(profile.social) + '</a></div>' : '') + '<div class="wide"><span>Über mich</span><p>' + escapeHtml(profile.bio || 'Noch kein Profiltext vorhanden.') + '</p></div></div><div class="chat-profile-actions">' + (ownProfile ? '<button class="button primary" type="button" data-action="chat-profile-edit">Profil bearbeiten</button>' : '<button class="button primary" type="button" data-action="chat-profile-private" data-username="' + escapeHtml(profile.username) + '">Private Nachricht</button>') + '</div>';
-    return '<section class="chat-profile-panel" aria-label="Chat-Profil"><div class="chat-profile-card"><header><button class="icon-button chat-profile-close" type="button" data-action="chat-profile-close" aria-label="Profil schließen">' + iconSvg('close') + '</button>' + avatar + '<div><h2>' + escapeHtml(profile.username) + '</h2><p>' + escapeHtml(roleLabel(profile.role)) + '</p></div></header>' + (chatProfileState.editing && ownProfile ? editMarkup : viewMarkup) + '</div></section>';
+    var editMarkup = '<form class="chat-profile-form"><div class="chat-profile-fields"><label>Nickname<input name="username" maxlength="24" required value="' + escapeHtml(profile.username || '') + '"></label><label>E-Mail-Adresse<input name="email" type="email" maxlength="190" required value="' + escapeHtml(profile.email || '') + '"></label><label>Telefonnummer<input name="phone" maxlength="40" value="' + escapeHtml(profile.phone || '') + '"></label><label>Webseite<input name="website" type="url" maxlength="300" placeholder="https://" value="' + escapeHtml(profile.website || '') + '"></label><label>Social-Media-Link<input name="social" type="url" maxlength="300" placeholder="https://" value="' + escapeHtml(profile.social || '') + '"></label><label class="wide">Über mich<textarea name="bio" maxlength="500" rows="5">' + escapeHtml(profile.bio || '') + '</textarea></label></div><input class="visually-hidden" type="file" data-chat-avatar-input accept="image/jpeg,image/png,image/gif,image/webp"><div class="chat-profile-actions">' + closeButton + '<button class="button secondary" type="button" data-action="chat-profile-avatar-change">Profilbild ändern</button><span class="action-spacer"></span><button class="button secondary" type="button" data-action="chat-profile-cancel">Bearbeiten abbrechen</button><button class="button primary" type="submit">Profil speichern</button></div></form>';
+    var profileAction = ownProfile
+      ? '<button class="button primary" type="button" data-action="chat-profile-edit">Profil bearbeiten</button>'
+      : '<button class="button primary" type="button" data-action="chat-profile-private" data-username="' + escapeHtml(profile.username) + '">Private Nachricht</button>';
+    var viewMarkup = '<div class="chat-profile-details"><div><span>Rolle</span><strong>' + escapeHtml(roleLabel(profile.role)) + '</strong></div>' + (profile.website ? '<div><span>Webseite</span><a href="' + escapeHtml(profile.website) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(profile.website) + '</a></div>' : '') + (profile.social ? '<div><span>Social Media</span><a href="' + escapeHtml(profile.social) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(profile.social) + '</a></div>' : '') + '<div class="wide"><span>Über mich</span><p>' + escapeHtml(profile.bio || 'Noch kein Profiltext vorhanden.') + '</p></div></div><div class="chat-profile-actions">' + closeButton + '<span class="action-spacer"></span>' + profileAction + '</div>';
+    return '<section class="chat-profile-panel" aria-label="Chat-Profil"><div class="chat-profile-card"><header><button class="icon-button chat-profile-close" type="button" data-action="chat-profile-close" aria-label="Profil schließen" title="Profil schließen">' + iconSvg('close') + '</button>' + avatar + '<div><h2>' + escapeHtml(profile.username) + '</h2><p>' + escapeHtml(roleLabel(profile.role)) + '</p></div></header>' + (chatProfileState.editing && ownProfile ? editMarkup : viewMarkup) + '</div></section>';
   }
 
   function formatChatBody(body) {

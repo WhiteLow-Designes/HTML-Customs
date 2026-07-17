@@ -2,7 +2,7 @@
   'use strict';
 
   var DATABASE_NAME = 'patrick-desktop-github-pages';
-  var DATABASE_VERSION = 1;
+  var DATABASE_VERSION = 2;
   var STORE_NAME = 'documents';
   var DATABASE_KEY = 'main';
   var SESSION_KEY = 'patrick-desktop-browser-session';
@@ -23,8 +23,8 @@
 
   function initialDatabase() {
     return {
-      version: 1,
-      counters: { user: 6, message: 4, privateMessage: 1, report: 1, moderation: 1 },
+      version: 2,
+      counters: { user: 2, message: 2, privateMessage: 1, report: 1, moderation: 1 },
       rooms: [
         { id: 1, name: 'Nachtlounge', description: 'Entspannt unterhalten' },
         { id: 2, name: 'Gaming', description: 'Games und Mitspieler' },
@@ -32,16 +32,10 @@
         { id: 4, name: 'Willkommen', description: 'Neue Mitglieder' }
       ],
       users: [
-        seedUser(1, 'Luna', 'moderator', 'online'),
-        seedUser(2, 'Ryu', 'user', 'online'),
-        seedUser(3, 'James', 'system', 'online'),
-        seedUser(4, 'Akira', 'user', 'away'),
-        seedUser(5, 'System', 'system', 'online')
+        seedUser(1, 'System', 'system', 'online')
       ],
       messages: [
-        { id: 1, room_id: 1, user_id: 5, type: 'system', body: 'Willkommen in der Nachtlounge. Die Daten werden direkt in deinem Browser gespeichert.', created_at: nowIso(), deleted_at: null },
-        { id: 2, room_id: 1, user_id: 1, type: 'message', body: 'Schön, dass du da bist 👋', created_at: nowIso(), deleted_at: null },
-        { id: 3, room_id: 1, user_id: 2, type: 'message', body: 'Der neue GitHub-Pages-Desktop sieht stark aus.', created_at: nowIso(), deleted_at: null }
+        { id: 1, room_id: 1, user_id: 1, type: 'system', body: 'Willkommen in der Nachtlounge. Registrierte Mitglieder erscheinen automatisch in der Benutzerliste.', created_at: nowIso(), deleted_at: null }
       ],
       privateMessages: [],
       reports: [],
@@ -70,6 +64,52 @@
     };
   }
 
+  function migrateDatabase(data) {
+    if (!data || typeof data !== 'object') data = initialDatabase();
+    data.users = Array.isArray(data.users) ? data.users : [];
+    data.messages = Array.isArray(data.messages) ? data.messages : [];
+    data.privateMessages = Array.isArray(data.privateMessages) ? data.privateMessages : [];
+    data.reports = Array.isArray(data.reports) ? data.reports : [];
+    data.moderationActions = Array.isArray(data.moderationActions) ? data.moderationActions : [];
+    data.rooms = Array.isArray(data.rooms) && data.rooms.length ? data.rooms : initialDatabase().rooms;
+    data.counters = data.counters || {};
+
+    var demoNames = ['Luna', 'Ryu', 'James', 'Akira'];
+    var removedIds = data.users.filter(function (user) {
+      return demoNames.indexOf(String(user.username || '')) !== -1 && user.local_account === false;
+    }).map(function (user) { return Number(user.id); });
+
+    data.users = data.users.filter(function (user) {
+      return removedIds.indexOf(Number(user.id)) === -1;
+    });
+    data.messages = data.messages.filter(function (message) {
+      return removedIds.indexOf(Number(message.user_id)) === -1;
+    });
+
+    var system = data.users.find(function (user) { return user.username === 'System' && user.role === 'system'; });
+    if (!system) {
+      var nextSystemId = Math.max(0, ...data.users.map(function (user) { return Number(user.id) || 0; })) + 1;
+      system = seedUser(nextSystemId, 'System', 'system', 'online');
+      data.users.push(system);
+    }
+    if (!data.messages.some(function (message) { return message.type === 'system'; })) {
+      data.messages.push({
+        id: Math.max(0, ...data.messages.map(function (message) { return Number(message.id) || 0; })) + 1,
+        room_id: 1,
+        user_id: system.id,
+        type: 'system',
+        body: 'Willkommen in der Nachtlounge. Registrierte Mitglieder erscheinen automatisch in der Benutzerliste.',
+        created_at: nowIso(),
+        deleted_at: null
+      });
+    }
+
+    data.counters.user = Math.max(Number(data.counters.user || 1), Math.max(0, ...data.users.map(function (user) { return Number(user.id) || 0; })) + 1);
+    data.counters.message = Math.max(Number(data.counters.message || 1), Math.max(0, ...data.messages.map(function (message) { return Number(message.id) || 0; })) + 1);
+    data.version = 2;
+    return data;
+  }
+
   function openDatabase() {
     return new Promise(function (resolve, reject) {
       if (!window.indexedDB) return reject(new Error('IndexedDB wird von diesem Browser nicht unterstützt.'));
@@ -88,7 +128,7 @@
       return new Promise(function (resolve, reject) {
         var transaction = database.transaction(STORE_NAME, 'readonly');
         var request = transaction.objectStore(STORE_NAME).get(DATABASE_KEY);
-        request.onsuccess = function () { resolve(request.result || initialDatabase()); };
+        request.onsuccess = function () { resolve(migrateDatabase(request.result || initialDatabase())); };
         request.onerror = function () { reject(request.error || new Error('Browser-Datenbank konnte nicht gelesen werden.')); };
         transaction.oncomplete = function () { database.close(); };
       });
