@@ -1,0 +1,20 @@
+{
+  "name": "Patrick Desktop",
+  "short_name": "Desktop",
+  "description": "Interaktiver Windows-11-Web-Desktop mit Dateisystem, Medien, Games und Raum-Chat.",
+  "lang": "de-DE",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#030303",
+  "theme_color": "#090a0d",
+  "icons": [
+    {
+      "src": "assets/icons/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
