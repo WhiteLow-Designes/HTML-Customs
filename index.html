@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090a0d">
+  <meta name="description" content="Interaktiver Windows-11-Desktop mit Dateisystem, Medien, Games, Einstellungen und Raum-Chat.">
+  <title>Patrick Desktop</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icons/app-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/windows11.css?v=20260717-13">
+</head>
+<body>
+  <a class="skip-link" href="#desktop">Zum Desktop springen</a>
+
+  <main id="desktop" class="desktop" tabindex="0" aria-label="Windows Desktop">
+    <div class="desktop-shade" aria-hidden="true"></div>
+    <section id="desktopIcons" class="desktop-icons" aria-label="Desktop-Symbole"></section>
+    <div id="selectionBox" class="selection-box" hidden aria-hidden="true"></div>
+    <section id="windowLayer" class="window-layer" aria-label="Geöffnete Fenster"></section>
+  </main>
+
+  <aside id="startMenu" class="start-menu glass-panel" aria-label="Startmenü" aria-hidden="true">
+    <div class="start-search">
+      <span class="ui-icon" data-icon="search" aria-hidden="true"></span>
+      <input id="startSearch" type="search" placeholder="Apps, Einstellungen und Dokumente suchen" autocomplete="off" aria-label="Im Startmenü suchen">
+    </div>
+    <div class="start-section-heading">
+      <strong>Angeheftet</strong>
+      <button id="allAppsButton" class="text-button" type="button">Alle Apps <span aria-hidden="true">›</span></button>
+    </div>
+    <div id="pinnedApps" class="pinned-apps" role="list"></div>
+    <div class="start-section-heading recommended-heading">
+      <strong>Empfohlen</strong>
+      <span class="small-muted">Zuletzt verwendet</span>
+    </div>
+    <div id="recommendedItems" class="recommended-items"></div>
+    <footer class="start-userbar">
+      <button id="startProfile" class="profile-chip" type="button">
+        <span id="startAvatar" class="avatar avatar-small">P</span>
+        <span id="startUsername">Patrick</span>
+      </button>
+      <button id="powerButton" class="icon-button" type="button" aria-label="Energiesparmenü" title="Energiesparmenü">
+        <span class="ui-icon" data-icon="power" aria-hidden="true"></span>
+      </button>
+    </footer>
+  </aside>
+
+  <aside id="quickLinks" class="quick-links glass-panel" aria-label="Webseitenverknüpfungen" aria-hidden="true">
+    <div class="panel-title">
+      <strong>Schnelllinks</strong>
+      <button id="editLinks" class="icon-button" type="button" aria-label="Links bearbeiten" title="Links bearbeiten">
+        <span class="ui-icon" data-icon="edit" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div id="quickLinksGrid" class="quick-links-grid"></div>
+  </aside>
+
+  <nav id="taskbar" class="taskbar" aria-label="Taskleiste">
+    <div class="taskbar-left" aria-hidden="true"></div>
+    <div class="taskbar-center">
+      <button class="taskbar-button start-button" type="button" data-command="start" aria-label="Start" title="Start">
+        <span class="windows-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
+      <button class="taskbar-button" type="button" data-command="search" aria-label="Suchen" title="Suchen">
+        <span class="ui-icon" data-icon="search" aria-hidden="true"></span>
+      </button>
+      <div id="taskbarPinnedApps" class="taskbar-pinned-apps" aria-label="Angeheftete Apps und Dateien"></div>
+      <div id="runningTasks" class="running-tasks" aria-label="Geöffnete Apps"></div>
+    </div>
+    <div class="taskbar-right">
+      <button class="tray-chevron" type="button" data-command="quick-links" aria-label="Ausgeblendete Symbole und Webseitenlinks einblenden" aria-expanded="false" title="Ausgeblendete Symbole einblenden">
+        <span aria-hidden="true">⬆️</span>
+      </button>
+      <button id="clockButton" class="clock" type="button" aria-label="Datum und Uhrzeit">
+        <time id="clockTime">00:00</time>
+        <time id="clockDate">01.01.2026</time>
+      </button>
+    </div>
+  </nav>
+
+  <div id="contextMenu" class="context-menu glass-panel" role="menu" aria-hidden="true"></div>
+  <div id="toastStack" class="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="appDialog" class="app-dialog">
+    <form method="dialog">
+      <div class="dialog-heading">
+        <div id="dialogIcon" class="dialog-icon" aria-hidden="true"></div>
+        <div>
+          <h2 id="dialogTitle">Bestätigen</h2>
+          <p id="dialogMessage"></p>
+        </div>
+      </div>
+      <div id="dialogFields" class="dialog-fields"></div>
+      <div class="dialog-actions">
+        <button id="dialogCancel" value="cancel" class="button secondary" type="submit" formnovalidate>Abbrechen</button>
+        <button id="dialogConfirm" value="confirm" class="button primary" type="submit">Bestätigen</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input id="mediaInput" type="file" accept="image/*,video/*" multiple hidden>
+  <input id="wallpaperInput" type="file" accept="image/*" hidden>
+  <input id="stateImportInput" type="file" accept="application/json,.json" hidden>
+
+  <template id="windowTemplate">
+    <article class="app-window" tabindex="-1">
+      <header class="titlebar">
+        <div class="titlebar-title">
+          <span class="window-app-icon" aria-hidden="true"></span>
+          <span class="window-title"></span>
+        </div>
+        <div class="window-controls">
+          <button class="window-control minimize" type="button" data-window-action="minimize" aria-label="Minimieren" title="Minimieren"><span aria-hidden="true">—</span></button>
+          <button class="window-control maximize" type="button" data-window-action="maximize" aria-label="Maximieren" title="Maximieren"><span aria-hidden="true">□</span></button>
+          <button class="window-control close" type="button" data-window-action="close" aria-label="Schließen" title="Schließen"><span aria-hidden="true">×</span></button>
+        </div>
+      </header>
+      <div class="window-body"></div>
+      <div class="resize-grip" aria-hidden="true"></div>
+    </article>
+  </template>
+
+  <script src="assets/js/browser-backend.js?v=20260717-2" defer></script>
+  <script src="assets/js/app.js?v=20260717-17" defer></script>
+</body>
+</html>
